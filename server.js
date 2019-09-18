@@ -1,6 +1,5 @@
 var express = require("express");
 var exphbs = require("express-handlebars");
-var mysql = require("mysql");
 
 var app = express();
 
@@ -16,5 +15,5 @@ app.set("view engine", "handlebars");
 
 // Start server
 app.listen(PORT, function() {
-    console.log("Listening on PORT " + PORT);
+    console.log("Server listening on: http://localhost:" + PORT);
 });
