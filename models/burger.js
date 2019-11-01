@@ -1,25 +1,61 @@
-// Dependencies
-var orm = require("../config/orm.js");
+const connection = require("../config/connection.js");
 
-var burger = {
-    selectAll: function(cb) {
-        orm.selectAll("burgers", function(res) {
-            cb(res);
-        });
-    },
-
-    insertOne: function(burgerName, cb) {
-        orm.insertOne("burgers", "burger_name", burgerName, function(res) {
-            cb(res);
-        });
-    },
-
-    updateOne: function(burgerId, cb) {
-        orm.updateOne("burgers", "devoured", 1, "id", burgerId, function(res) {
-            cb(res);
-        });
-    }
+// create a function that reads from the burgers table
+// SELECT * FROM burgers
+const findAll = () => {
+  // create a new Promise
+  return new Promise((resolve, reject) => {
+    connection.query('SELECT * FROM burgers', function(err, dbBurgerData) {
+      if (err) {
+        // this will throw to a .catch()
+        return reject(err);
+      }
+      // this will throw to a .then()
+      return resolve(dbBurgerData);
+    });
+  });
 };
 
-// Export
-module.exports = burger;
+// CREATE/INSERT
+// INSERT INTO burgers SET ? ({name: "burgerName"})
+const create = burgerDataObj => {
+  return new Promise((resolve, reject) => {
+    connection.query('INSERT INTO burgers SET ?', [burgerDataObj], function(err, dbBurgerData) {
+      if (err) {
+        // this will throw to a .catch()
+        return reject(err);
+      }
+      // this will throw to a .then()
+      return resolve(dbBurgerData);
+    });
+  });
+};
+
+// UPDATE burgers
+const update = (devoured, burgerId) => {
+  return new Promise((resolve, reject) => {
+
+    // set devoured to boolean true/false
+    devoured = (devoured === "true") 
+      ? true : false;
+
+    connection.query("UPDATE burgers SET devoured = ? WHERE id = ?", [devoured, burgerId], function(err, dbBurgerData) {
+
+      if (err) {
+        return reject(err);
+      }
+      else if (dbBurgerData.changedRows === 0) {
+        return reject({message: "You probably have the wrong ID"});
+      }
+      else {
+        return resolve(dbBurgerData);
+      };
+    });
+  });
+};
+
+module.exports = {
+  findAll,
+  create,
+  update
+};

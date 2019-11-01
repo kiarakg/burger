@@ -1,40 +1,56 @@
-<header>
-    <h1>Eat Da Burger!</h1>
-</header>
+<div class="jumbotron jumbotron-fluid text-center">
+  <h1 class="display-1">🍔 Eat Da Burger</h1>
+</div>
 
-<div class="wrapper">
-    <div id="create-burger">
-        <form action="/" method="POST">
-            <input id="burger-name" type="text" name="burger_name" placeholder="Create a burger">
-            <button id="submit-btn" type="submit">Manifest</button>
-        </form>
+<div class="container">
+  <div class="row">
+    {{!-- Left column for Burger Form --}}
+    <div class="col-12 col-md-3">
+      <form id="burger-form">
+        <input type="text" class="form-control mb-3" id="burger-input" placeholder="Burger Name">
+        <button class="btn btn-block btn-success" type="submit">Add a Burger!</button>
+      </form>
     </div>
 
-    <section id="burgers-container">
+    {{!-- Right columm for printing burgers --}}
+    <div class="col-12 col-md-9">
+      <div class="row">
 
-        <div id="burgers-available">
-            <h2>Burgers Available</h2>
-            {{#each burgers}}
-            {{#unless this.devoured}}
-
-            <div class="burger">
-                <form class="devour-burger-form" action="/{{id}}?_method=PUT" method="POST">
-                    <button class="eat-btn">EAT</button>
-                </form>
-                {{burger_name}} <span>#{{id}}</span>
-            </div>
-
-            {{/unless}}
+        {{!-- Inner left column for burgers waiting to be devoured --}}
+        <div class="col-12 col-md-6">
+          <h2 class="mb-3">Waiting to be Devoured</h2>
+          <ul class="list-group">
+            {{#each burgerData}}
+              {{#unless devoured}}
+              <li class="list-group-item d-flex">
+                {{burger_name}}
+                <span class="ml-auto">
+                  <button class="btn btn-sm btn-warning devour-burger" data-id="{{id}}" data-devoured="true">Devour It!</button>
+                </span>
+              </li>
+              {{/unless}}
             {{/each}}
+          </ul>
         </div>
 
-        <div id="burgers-devoured">
-            <h2>Burger Heaven</h2>
-            {{#each burgers}}
-            {{#if this.devoured}}
-            <div class="burger">{{burger_name}} <span>#{{id}}</span></div>
-            {{/if}}
+        {{!-- Inner right column for burgers that have been devoured --}}
+        <div class="col-12 col-md-6">
+          <h2 class="mb-3">Already Devoured</h2>
+          <ul class="list-group">
+            {{#each burgerData}}
+              {{#if devoured}}
+              <li class="list-group-item d-flex">
+                {{burger_name}}
+              </li>
+              {{/if}}
             {{/each}}
+          </ul>
         </div>
-    </section>
+
+      {{!-- Do not delete! --}}
+      </div>
+    </div>
+  </div>
 </div>
+
+<script type="text/javascript" src="../public/js/burgers.js"></script>
