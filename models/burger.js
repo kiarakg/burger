@@ -1,61 +1,36 @@
-const connection = require("../config/connection.js");
+// Import the ORM to create functions that will interact with the database.
+var orm = require("../config/orm.js");
 
-// create a function that reads from the burgers table
-// SELECT * FROM burgers
-const findAll = () => {
-  // create a new Promise
-  return new Promise((resolve, reject) => {
-    connection.query('SELECT * FROM burgers', function(err, dbBurgerData) {
-      if (err) {
-        // this will throw to a .catch()
-        return reject(err);
-      }
-      // this will throw to a .then()
-      return resolve(dbBurgerData);
+var burger = {
+  // Select all burgers from database.
+  all: function(cb) {
+    orm.all("burgers", function(res) {
+      cb(res);
     });
-  });
-};
+  },
 
-// CREATE/INSERT
-// INSERT INTO burgers SET ? ({name: "burgerName"})
-const create = burgerDataObj => {
-  return new Promise((resolve, reject) => {
-    connection.query('INSERT INTO burgers SET ?', [burgerDataObj], function(err, dbBurgerData) {
-      if (err) {
-        // this will throw to a .catch()
-        return reject(err);
-      }
-      // this will throw to a .then()
-      return resolve(dbBurgerData);
+  // Create function to create/add a burger.
+  // The variables cols and vals are arrays.
+  create: function(cols, vals, cb) {
+    orm.create("burgers", cols, vals, function(res) {
+      cb(res);
     });
-  });
-};
+  },
 
-// UPDATE burgers
-const update = (devoured, burgerId) => {
-  return new Promise((resolve, reject) => {
-
-    // set devoured to boolean true/false
-    devoured = (devoured === "true") 
-      ? true : false;
-
-    connection.query("UPDATE burgers SET devoured = ? WHERE id = ?", [devoured, burgerId], function(err, dbBurgerData) {
-
-      if (err) {
-        return reject(err);
-      }
-      else if (dbBurgerData.changedRows === 0) {
-        return reject({message: "You probably have the wrong ID"});
-      }
-      else {
-        return resolve(dbBurgerData);
-      };
+  // Update function to update burger devoured state.
+  update: function(objColVals, condition, cb) {
+    orm.update("burgers", objColVals, condition, function(res) {
+      cb(res);
     });
-  });
+  },
+
+  // Delete function to throw away/delete burger from database.
+  delete: function(condition, cb) {
+    orm.delete("burgers", condition, function(res) {
+      cb(res);
+    });
+  }
 };
 
-module.exports = {
-  findAll,
-  create,
-  update
-};
+// Export the database functions for the controller (burgers_controller.js).
+module.exports = burger;
