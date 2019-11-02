@@ -3,6 +3,8 @@ var mysql = require("mysql");
 
 require("dotenv").config();
 
+// hey
+
 // Define database connection properties
 // Use production database when deployed.
 if (process.env.JAWSDB_URL) {
