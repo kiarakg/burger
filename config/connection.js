@@ -1,7 +1,7 @@
 // Require mysql npm package to create a connection to the mysql database.
 var mysql = require("mysql");
 
-require("dotenv").config();
+//require("dotenv").config();
 
 // Define database connection properties
 // Use production database when deployed.
@@ -16,7 +16,7 @@ else {
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Kiki0601!",
+    password: "",
     database: "burgers_db"
   });
 }
