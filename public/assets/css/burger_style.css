@@ -1,17 +1,21 @@
 /*Color of Devoured burgers card header*/
 #devoured-card-header  {
-    background-color: #ca341f;
+    background-color: rgb(226, 98, 24);
 }
 
 /*Font color of devoured burger names*/
 .devoured-burger-name {
-    color: #ca341f;
+    color: black;
 }
 
-/* Use Righteous font from Google fonts*/
-/* body {
-    font-family: 'Righteous', cursive; */
+.ordered-burger {
+    color: black;
 }
+
+#burgers-card-header {
+    background-color: black;
+}
+
 
 /* Font size of app title in jumbotron*/
 #app-title {
@@ -23,10 +27,9 @@
     font-size: 24px;
 }
 
-/* Burger background image*/
+/* background image*/
 body {
-    background-color: #B0DBA4;
+    background-color:;
     background-repeat: no-repeat;
     background-size: cover;
 }
-

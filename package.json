@@ -22,5 +22,7 @@
     "express-handlebars": "^3.1.0",
     "mysql": "^2.17.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.2"
+  }
 }
