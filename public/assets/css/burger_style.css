@@ -1,0 +1,34 @@
+/*Color of Devoured burgers card header*/
+#devoured-card-header  {
+    background-color: rgb(226, 98, 24);
+}
+
+/*Font color of devoured burger names*/
+.devoured-burger-name {
+    color: black;
+}
+
+.ordered-burger {
+    color: black;
+}
+
+#burgers-card-header {
+    background-color: black;
+}
+
+
+/* Font size of app title in jumbotron*/
+#app-title {
+    font-size: 90px;
+}
+
+/*Font size of lead statement in jumbotron*/
+.lead {
+    font-size: 24px;
+}
+
+/* background image*/
+body {
+    background-repeat: no-repeat;
+    background-size: cover;
+}
